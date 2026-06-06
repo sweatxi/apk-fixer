@@ -67,7 +67,9 @@ cargo clean
 3. 点击 "[ Detect ]" 检测保护特征，或直接点击 "[ Fix ]" 一键修复
 4. 修复后的文件会自动添加 `_fixed` 后缀
 
-![image.png](png\1780597981996-683621f3-3bfb-48fa-aa49-e492713d183b.png)
+![image.png](assets/1780597981996-683621f3-3bfb-48fa-aa49-e492713d183b.webp)
+
+![image.png](assets/1780598014705-b7c95ba5-9db9-4484-be88-eb678b3b6253.webp)
 
 ### CLI 版本
 
