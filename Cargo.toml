@@ -1,0 +1,42 @@
+[package]
+name = "apk-fixer"
+version = "0.1.0"
+edition = "2021"
+authors = ["APK Security Researcher"]
+description = "一键检测并修复 APK 中的反分析保护特征"
+license = "MIT"
+repository = "https://github.com/yourusername/apk-fixer"
+readme = "README.md"
+keywords = ["apk", "android", "security", "zip", "reverse-engineering"]
+categories = ["command-line-utilities", "development-tools"]
+
+[dependencies]
+anyhow = "1.0"
+byteorder = "1.5"
+clap = { version = "4.5", features = ["derive"] }
+colored = "2.1"
+eframe = "0.29"
+egui = "0.29"
+rfd = "0.15"
+image = "0.25"
+
+[build-dependencies]
+winres = "0.1"
+
+[[bin]]
+name = "apk-fixer"
+path = "src/main.rs"
+
+[[bin]]
+name = "apk-fixer-gui"
+path = "src/gui.rs"
+
+[profile.release]
+opt-level = "z"      # 优化文件体积
+lto = true           # 链接时优化
+codegen-units = 1    # 单线程编译优化
+strip = true         # 去除符号表
+panic = "abort"      # panic 直接终止
+
+[profile.dev]
+opt-level = 0        # 开发时不优化，编译快
