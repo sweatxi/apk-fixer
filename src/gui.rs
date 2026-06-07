@@ -1,6 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod axml_fixer;
 mod compression;
+mod compression_detector;
 mod detector;
 mod fixer;
 mod zip_structures;
@@ -72,6 +74,7 @@ enum LogLevel {
     Error,
 }
 
+#[allow(dead_code)]
 struct Report {
     issues_found: usize,
     compression_fixed: usize,
@@ -235,6 +238,7 @@ impl ApkFixerApp {
                                     format!("  Cleared {} fake encryption flags", fix_report.encryption_fixed),
                                 );
                             }
+
 
                             if fix_report.zipbomb_removed > 0 {
                                 add_log(

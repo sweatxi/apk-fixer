@@ -19,6 +19,8 @@ eframe = "0.29"
 egui = "0.29"
 rfd = "0.15"
 image = "0.25"
+flate2 = "1.0"
+crc32fast = "1.4"
 
 [build-dependencies]
 winres = "0.1"

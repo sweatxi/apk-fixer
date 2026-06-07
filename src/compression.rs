@@ -1,6 +1,7 @@
 // ZIP 标准压缩方法枚举
 // https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[repr(u16)]
 pub enum CompressionMethod {
@@ -42,12 +43,10 @@ impl CompressionMethod {
         )
     }
 
-    /// 判断压缩方法是否为 APK 中常见的
+    /// 判断压缩方法是否为 APK 中常见的（Store 或 Deflate）
+    #[allow(dead_code)]
     pub fn is_apk_common(value: u16) -> bool {
-        matches!(
-            value,
-            0 | 8  // Store 或 Deflate
-        )
+        matches!(value, 0 | 8)
     }
 
     /// 将 u16 转换为名称字符串

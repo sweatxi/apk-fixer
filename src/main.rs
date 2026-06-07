@@ -1,4 +1,6 @@
+mod axml_fixer;
 mod compression;
+mod compression_detector;
 mod detector;
 mod fixer;
 mod zip_structures;

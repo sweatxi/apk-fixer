@@ -1,6 +1,6 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
-use std::io::{Cursor, Read, Seek, SeekFrom};
+use std::io::{Cursor, Read};
 
 /// ZIP Central Directory Header 结构
 #[derive(Debug, Clone)]
@@ -116,11 +116,6 @@ impl CentralDirectoryHeader {
         Ok(buf)
     }
 
-    /// 获取完整大小（包括变长部分）
-    pub fn total_size(&self) -> usize {
-        Self::FIXED_SIZE + self.filename.len() + self.extra_field.len() + self.comment.len()
-    }
-
     /// 获取文件名字符串
     pub fn filename_str(&self) -> String {
         String::from_utf8_lossy(&self.filename).to_string()
@@ -129,7 +124,13 @@ impl CentralDirectoryHeader {
     /// 计算压缩比
     pub fn compression_ratio(&self) -> f64 {
         if self.compressed_size == 0 {
-            0.0
+            // compressed_size=0 但 uncompressed_size>0 是典型反分析手法：
+            // 声称有内容但无压缩数据，工具解压后得 0 字节而报错
+            if self.uncompressed_size > 0 {
+                f64::INFINITY
+            } else {
+                0.0
+            }
         } else {
             self.uncompressed_size as f64 / self.compressed_size as f64
         }
